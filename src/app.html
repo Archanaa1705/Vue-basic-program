@@ -1,0 +1,303 @@
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Food for the soul</title>
+    <link rel="stylesheet" href="styles/style.min.css">
+    <link rel="icon" href="../public/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../public/favicon.ico" type="image/ico">
+  </head>
+  <body>
+   
+
+    <div id="app">
+
+      <header class="top-bar spread">
+        <nav class="top-bar-nav">
+          <a href="#" class="top-bar-link">
+            <i class="icofont-spoon-and-fork"></i>
+            <span>Home</span>
+          </a>
+          
+          <a href="views/login.html" class="top-bar-link">
+            <span>Login</span>
+          </a>  
+        </nav>
+       
+        <a @click="toggleSideBar" class="top-bar-cart-link">
+          <i class="icofont-cart-alt icofont-1x"></i>
+          <span>Cart ({{totalQuantity}})</span>
+        </a>
+       
+      
+       
+      </header>
+      
+      <div class="splash-container">
+        <div class="splash">
+        
+          <h1>Food for the soul</h1>
+        </div>
+      </div>
+
+    </br>
+
+        
+
+    <div class="card-container">
+     
+     
+        
+        <input type="text" v-model="search" placeholder="Search products "/> 
+      
+       <- Search for your favourite products here
+        <div  v-for="(product,i) in SearchProduct" :key="product.id" class="card">
+          <div v-if="search==product.name">
+          <div class="card-title">
+  
+            {{product.name}}
+          </div>
+          <div class="card-body">
+            <i class="icofont-10x icofont-{{product.icon}}"></i>
+            <form>
+  
+              <div class="row">
+                <div class="cell">
+                  <label>Type:</label>
+                </div>
+                <div class="cell">
+                  <em> {{product.type}}</em>
+                </div>
+              </div>
+              <div class="row">
+                <div class="cell">
+                  <label>Price:</label>
+                </div>
+                <div class="cell">
+                 $ {{product.price.USD}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="cell">
+                  <label>Quantity:</label>
+                </div>
+                <div class="cell">
+                  <input type="number" v-model.number="product.quantity">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="card-footer">
+            <button @click= "addToCart(product.name,i)" class="btn btn-light">
+              Add to cart
+            </button>
+          </div>
+        </div>
+       
+        </div>
+
+        
+    
+      <div>
+        Search for your favourite category here
+        <label for="filter">Category: </label>
+
+        <select name="filter" v-model="filter" id="filter">
+        <option value="meat">Meat</option>
+      <option value="fruit">Fruit</option>
+        <option value="vegetable">Vegetable</option>
+
+      </select>
+    </div>
+
+        <div  v-for="(product,i) in filterProduct" :key="product.id" class="card">
+          <div v-if="filter==product.type">
+          <div class="card-title">
+  
+            {{product.name}}
+          </div>
+          <div class="card-body">
+            <i class="icofont-10x icofont-{{product.icon}}"></i>
+            <form>
+  
+              <div class="row">
+                <div class="cell">
+                  <label>Type:</label>
+                </div>
+                <div class="cell">
+                  <em> {{product.type}}</em>
+                </div>
+              </div>
+              <div class="row">
+                <div class="cell">
+                  <label>Price:</label>
+                </div>
+                <div class="cell">
+                 $ {{product.price.USD}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="cell">
+                  <label>Quantity:</label>
+                </div>
+                <div class="cell">
+                  <input type="number" v-model.number="product.quantity">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="card-footer">
+            <button @click= "addToCart(product.name,i)" class="btn btn-light">
+              Add to cart
+            </button>
+          </div>
+        </div>
+
+     
+        
+        
+      
+       
+    
+  
+    </div>
+    </br>
+
+   
+  </br>
+
+
+      <marquee behavior="scroll"scrollamount="20"> 
+        <h1 style="color:red; font-weight: bold; height:100px;font-size: 50px;">Most popular items</h5>  
+     </marquee>
+      
+    </br>
+    </br>
+
+ 
+
+    <main class="wrapper">
+
+    <div class="card-container">
+     
+       
+
+      <div  v-for="(product,i) in inventory.slice(0,3)" :key="product.id" class="card">
+        <div class="card-title">
+
+          {{product.name}}
+        </div>
+        <div class="card-body">
+          <i class="icofont-10x icofont-{{product.icon}}"></i>
+          <form>
+
+            <div class="row">
+              <div class="cell">
+                <label>Type:</label>
+              </div>
+              <div class="cell">
+                <em> {{product.type}}</em>
+              </div>
+            </div>
+            <div class="row">
+              <div class="cell">
+                <label>Price:</label>
+              </div>
+              <div class="cell">
+               $ {{product.price.USD}}
+              </div>
+            </div>
+           
+          </form>
+        </div>
+        
+      </div>
+
+      
+
+    </div>
+  </br>
+</br></br>
+</br>
+  
+        <h2>Our Products</h2>
+        
+
+        <div class="card-container">
+         
+           
+
+          <div  v-for="(product,i) in inventory" :key="product.id" class="card">
+            <div class="card-title">
+
+              {{product.name}}
+            </div>
+            <div class="card-body">
+              <i class="icofont-10x icofont-{{product.icon}}"></i>
+              <form>
+
+                <div class="row">
+                  <div class="cell">
+                    <label>Type:</label>
+                  </div>
+                  <div class="cell">
+                    <em> {{product.type}}</em>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="cell">
+                    <label>Price:</label>
+                  </div>
+                  <div class="cell">
+                   $ {{product.price.USD}}
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="cell">
+                    <label>Quantity:</label>
+                  </div>
+                  <div class="cell">
+                    <input type="number" v-model.number="product.quantity">
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="card-footer">
+              <button @click= "addToCart(product.name,i)" class="btn btn-light">
+                Add to cart
+              </button>
+            </div>
+          </div>
+
+          
+
+        </div>
+      </br>
+   
+
+      </main>
+      <sidebar 
+      v-if="showSideBar"
+       :toggle="toggleSideBar"
+       :cart="cart"
+       :inventory="inventory"
+       :remove="removeItem"
+
+       ></sidebar> 
+      
+      <footer>
+
+      </footer>
+
+    </div>
+
+      
+    <script src="https://unpkg.com/vue@next"></script>
+  <script src="app.js">
+    
+  </script>
+  </body>
+</html>
+
+
